@@ -15,7 +15,8 @@ on:
 
 jobs:
   playwright-test:
-    runs-on: ${{ github.event_name != 'workflow_dispatch' && github.event.inputs.os_type || 'ubuntu-latest' }}
+    runs-on: ${{ github.event_name != 'workflow_dispatch' && 'ubuntu_latest' || github.event.inputs.os_type }}
+    # runs-on: ${{ github.event_name != 'workflow_dispatch' && github.event.inputs.os_type || 'ubuntu-latest' }}
     if: ${{ !github.event.pull_request.draft }}
     steps:
       - name: checkout
