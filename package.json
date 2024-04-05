@@ -1,0 +1,27 @@
+{
+  "name": "pw-storagestate",
+  "version": "1.0.0",
+  "description": "example of sign in authentication with playwright storage state",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\""
+  },
+  "keywords": [
+    "playwright",
+    "typescript"
+  ],
+  "repository": {
+    "url": "https://github.com/jeanljh/pw-storageState.git",
+    "type": "git"
+  },
+  "author": "jean",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "@types/node": "^20.12.4",
+    "dotenv": "^16.4.5",
+    "prettier": "^3.2.5"
+  }
+}
