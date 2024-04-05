@@ -1,6 +1,6 @@
 # pw-storagestage
 
-[![test](https://github.com/jeanljh/pw-storagestate/actions/workflows/test.yml/badge.svg)](https://github.com/jeanljh/pw-storagestate/actions/workflows/test.yml)
+[![test](https://github.com/jeanljh/pw-storagestage/actions/workflows/test.yml/badge.svg)](https://github.com/jeanljh/pw-storagestage/actions/workflows/test.yml)
 
 Example of sign in authentication with playwright storage state.
 
