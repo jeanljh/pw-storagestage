@@ -22,6 +22,6 @@
     "@playwright/test": "^1.43.1",
     "@types/node": "^20.12.8",
     "dotenv": "^16.4.5",
-    "prettier": "^3.2.5"
+    "prettier": "^3.3.0"
   }
 }
