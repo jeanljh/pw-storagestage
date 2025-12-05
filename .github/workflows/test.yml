@@ -21,7 +21,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
       - name: install dependencies
         run: npm ci
         shell: bash
