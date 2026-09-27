@@ -6,6 +6,7 @@ export default class Login {
     readonly buttonSubmit: Locator
     readonly buttonUsePassword: Locator
     readonly buttonSecurityInfoOk: Locator
+    readonly buttonStaySignedIn: Locator
 
     constructor(readonly page: Page) {
         this.inputUsername = this.page.locator('input[name=loginfmt]')
@@ -16,6 +17,7 @@ export default class Login {
 			.or(page.getByRole('button', { name: /^(Next|Sign in|Yes)$/ }))
 		this.buttonUsePassword = this.page.getByRole('button', { name: /Use your password/ })
 		this.buttonSecurityInfoOk = this.page.getByRole('button', { name: 'Looks good!' })
+		this.buttonStaySignedIn = this.page.getByRole('button', { name: /^(Yes|Next|Sign in)$/ })
     }
 
 	async signIn(username: string, password: string): Promise<void> {
@@ -31,19 +33,19 @@ export default class Login {
         }
 
         await this.inputPassword.fill(password)
+        await this.buttonSubmit.first().click()
 
-        // After the password, Microsoft may show "Stay signed in?", a prompt to
-        // reconfirm the account's security info, both, or neither, before it
-        // redirects. Clear whichever appears so the redirect can complete.
+        // Microsoft interrupts the redirect with "Is your security info still
+        // accurate?" and/or "Stay signed in?". They render after a navigation,
+        // so wait for one to appear rather than checking immediately.
         for (let i = 0; i < 3; i++) {
-            if (await this.buttonSecurityInfoOk.isVisible().catch(() => false)) {
-                await this.buttonSecurityInfoOk.click()
-            } else if (await this.buttonSubmit.first().isVisible().catch(() => false)) {
-                await this.buttonSubmit.first().click()
-            } else {
+            const prompt = this.buttonSecurityInfoOk.or(this.buttonStaySignedIn).first()
+            try {
+                await prompt.waitFor({ state: 'visible', timeout: 15000 })
+            } catch {
                 break
             }
-            await this.page.waitForLoadState('domcontentloaded').catch(() => {})
+            await prompt.click()
         }
 	}
 }
