@@ -8,8 +8,11 @@ export default class Login {
 
     constructor(readonly page: Page) {
         this.inputUsername = this.page.locator('input[name=loginfmt]')
-		this.inputPassword = this.page.getByPlaceholder('Password')
-		this.buttonSubmit = this.page.locator('#idSIButton9').or(page.locator('#acceptButton'))
+		// the redesigned sign-in labels this field rather than using a placeholder
+		this.inputPassword = this.page.getByRole('textbox', { name: 'Password' })
+		this.buttonSubmit = this.page.locator('#idSIButton9')
+			.or(page.locator('#acceptButton'))
+			.or(page.getByRole('button', { name: /^(Next|Sign in|Yes)$/ }))
 		this.buttonUsePassword = this.page.getByRole('button', { name: /Use your password/ })
     }
 
